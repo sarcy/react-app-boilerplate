@@ -22,14 +22,22 @@ let config = {
     filename  : './js/[name].bundle.js'
   },
 
+  // Webpack Dev Server config.
   devServer : {
-    inline : true,
-    port   : 8080
+    // Run the webpack-dev-server in inline mode.
+    inline             : true,
+    // The port to be used by the webpack-dev-server.
+    port               : 8080,
+    // Where to load the content for the app from.
+    contentBase        : './build',
+    // Required for the BrowserRouter from react-router-dom to function properly.
+    historyApiFallback : true
   },
 
   // Build the files which could be jsx or js.
   module : {
     rules : [
+      // Rules for the React js/jsx files.
       {
         test    : /\.(jsx|js)$/,
         exclude : /node_modules/,
@@ -40,8 +48,9 @@ let config = {
           }
         }
       },
+      // Rules for the sass/css stylesheet files.
       {
-        test    : /\.scss?$/,
+        test    : /\.(scss|css)?$/,
         exclude : /node_modules/,
         use     : ExtractTextPlugin.extract({
           fallback : 'style-loader',
