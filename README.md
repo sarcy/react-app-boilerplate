@@ -30,4 +30,4 @@ npm run build-prod
 This creates the entire code in the *build* folder.
 
 ### Updating the code
-All the code for to start working with the boilerplate can be found in the *src* folder. The main file that handles the app is *app.js*. The boilerplate also uses the *html-webpack-plugin* to create the html file for the app to work and uses the *index.html.ejs* as the template for this file.
+All the code for to start working with the boilerplate can be found in the ```src``` folder. The main file that handles the app is ```app.js```. The boilerplate also uses the ```html-webpack-plugin``` to create the html file for the app to work and uses the ```index.html.ejs``` as the template for this file.
