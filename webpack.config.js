@@ -1,7 +1,7 @@
 let path = require('path'),
     HTMLWebpackPlugin = require('html-webpack-plugin'),
     CleanWebpackPlugin = require('clean-webpack-plugin'),
-    ExtractTextPlugin = require('extract-text-webpack-plugin');
+    MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 let config = {
 
@@ -44,7 +44,7 @@ let config = {
         use     : {
           loader  : 'babel-loader',
           options : {
-            presets : ['es2015', 'react']
+            presets : ['@babel/env', '@babel/react']
           }
         }
       },
@@ -52,26 +52,32 @@ let config = {
       {
         test    : /\.(scss|css)?$/,
         exclude : /node_modules/,
-        use     : ExtractTextPlugin.extract({
-          fallback : 'style-loader',
-          use      : ['css-loader', 'sass-loader']
-        })
+        use     : [
+          {
+            loader  : MiniCssExtractPlugin.loader,
+            options : {
+              publicPath : './styles/'
+            }
+          },
+          'css-loader',
+          'sass-loader'
+        ]
       }
     ]
   },
 
   // CleanWebpackPlugin: Deletes the previously built output folder.
   // HTMLWebpackPlugin: Plugin to create the HTML file in the build folder.
-  // ExtractTextPlugin: Create a single css file from the scss import files.
+  // MiniCssExtractPlugin: Extract the CSS files.
   plugins : [
     new CleanWebpackPlugin(['build']),
     new HTMLWebpackPlugin({
       title    : 'CUSTOMIZE TITLE HERE',
       template : path.resolve(__dirname, './src/template/index.html.ejs')
     }),
-    new ExtractTextPlugin({
-      filename  : './styles/app.css',
-      allChunks : true
+    new MiniCssExtractPlugin({
+      filename      : '[name].css',
+      chunkFileName : '[id].css'
     })
   ]
 }
